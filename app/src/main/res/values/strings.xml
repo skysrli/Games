@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Games</string>
+    <string name="bottom_nav_item_games">Games</string>
+    <string name="bottom_nav_item_favorites">Favorites</string>
+    <string name="detail_screen_text_game_description">Game Description</string>
+    <string name="detail_screen_text_visit_reddit">Visit reddit</string>
+    <string name="detail_screen_text_visit_website">Visit website</string>
+    <string name="favorites_screen_text_no_favorites">There is no favorites.</string>
+    <string name="games_screen_text_no_games">No game has been searched.</string>
+    <string name="games_screen_hint_game_search">Search for games</string>
+    <string name="gams_screen_row_item_text_metacritic">metacritic:\u0020\u0020</string>
 </resources>
