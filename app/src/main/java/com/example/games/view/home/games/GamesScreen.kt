@@ -1,56 +1,64 @@
-package com.example.games.view.home
+package com.example.games.view.home.games
 
 import android.util.Log
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.selection.selectable
-import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.AsyncImage
 import com.example.games.R
+import com.example.games.model.Game
 import com.example.games.navigation.Screens
 import com.example.games.ui.theme.*
+import com.example.games.viewmodel.home.GameListState
+import com.example.games.viewmodel.home.GamesViewModel
 
-data class AndroidVersion(
-    val name: String,
-    val release: String,
-)
 
 @Composable
 fun GamesScreen(navController: NavController) {
 
+    val viewModel: GamesViewModel = hiltViewModel()
+    val uiState: GameListState by viewModel.uiState.collectAsState()
 
-    val androidNameList = listOf(
+    when(uiState){
 
-        AndroidVersion("Marshmallow", "October 5, 2015"),
-        AndroidVersion("Nougat", "August 22, 2016"),
-        AndroidVersion("Oreo", "August 21, 2017"),
-        AndroidVersion("Pie", "August 6, 2018"),
-        AndroidVersion("Android 10", "September 3, 2019"),
-        AndroidVersion("Android 11", "September 8, 2020")
-    )
+        is GameListState.Success -> {
+            Content(gameList = (uiState as GameListState.Success).gameList, navController = navController)
+        }
+        is GameListState.Error -> {
 
+        }
+        else -> {
+
+        }
+    }
+
+
+
+}
+
+@Composable
+private fun Content(gameList: List<Game>,navController: NavController){
     Column(
         modifier = Modifier
             .background(Gray)
@@ -59,24 +67,17 @@ fun GamesScreen(navController: NavController) {
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
 
-            items(androidNameList) {
-                RowItem(it){
-                    navController.navigate(Screens.Detail.route)
+            items(gameList) {
+                RowItem(it){ game ->
+                    navController.navigate(Screens.Detail.route.replace("{game_id}",game.id.toString()))
                 }
             }
         }
-
-
-//        Text(text = "games")
-//        Button(onClick = { navController.navigate(Screens.Detail.route) }) {
-//
-//        }
     }
-
 }
 
 @Composable
-fun RowItem(androidVersion: AndroidVersion,selectedItem: (AndroidVersion)-> Unit) {
+private fun RowItem(game: Game,selectedItem: (Game)-> Unit) {
 
     Row(
         modifier = Modifier
@@ -84,17 +85,17 @@ fun RowItem(androidVersion: AndroidVersion,selectedItem: (AndroidVersion)-> Unit
             .fillMaxWidth()
             .background(White)
             .padding(16.dp)
-            .clickable { selectedItem(androidVersion) },
+            .clickable { selectedItem(game) },
         verticalAlignment = Alignment.CenterVertically
     ) {
 
-        Image(
-            modifier = Modifier
-                .width(120.dp)
-                .height(104.dp),
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_launcher_background),
-            contentDescription = null
-        )
+        AsyncImage(modifier = Modifier
+            .width(120.dp)
+            .height(104.dp)
+            .padding(end = 16.dp),
+            model = game.image,
+            contentScale = ContentScale.Crop,
+            contentDescription = null)
 
         Row(
             modifier = Modifier
@@ -110,7 +111,7 @@ fun RowItem(androidVersion: AndroidVersion,selectedItem: (AndroidVersion)-> Unit
 
                 Text(
                     modifier = Modifier.weight(1f),
-                    text = "The Witcher",
+                    text = game.name,
                     color = Black,
                     style = Typography.body1,
                     fontSize = 20.sp,
@@ -129,12 +130,12 @@ fun RowItem(androidVersion: AndroidVersion,selectedItem: (AndroidVersion)-> Unit
                                 fontSize = 18.sp
                             )
                         ) {
-                            append("W")
+                            append(game.metacritic.toString())
                         }
                     }
                 )
                 Text(
-                    text = "Action,shooter",
+                    text = game.genres[0].name,
                     color = Gray8A8,
                     fontSize = 13.sp,
                     style = Typography.body2,

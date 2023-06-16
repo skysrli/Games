@@ -1,4 +1,4 @@
-package com.example.games.view.home
+package com.example.games.view.home.favorites
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

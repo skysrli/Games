@@ -23,13 +23,15 @@ import com.example.games.navigation.AppNavGraph
 import com.example.games.navigation.Screens
 import com.example.games.ui.theme.*
 import com.example.games.view.home.BottomNavItem
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             GamesTheme(darkTheme = false) {
-                MainScreen2()
+                MainScreen()
             }
         }
     }
@@ -42,26 +44,10 @@ fun DefaultPreview() {
         // MainScreen()
     }
 }
-//
-//@Composable
-//fun MainScreen() {
-//    Surface(
-//        modifier = Modifier.fillMaxSize(),
-//        color = Gray
-//    ) {
-//        Column(
-//            modifier = Modifier
-//                .fillMaxSize()
-//        ) {
-//            val navController = rememberNavController()
-//            AppNavGraph(navController)
-//        }
-//    }
-//}
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun MainScreen2() {
+fun MainScreen() {
     val scaffoldState: ScaffoldState = rememberScaffoldState()
     val navController = rememberNavController()
     val showBar: Boolean =

@@ -7,12 +7,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.games.view.detail.DetailScreen
-import com.example.games.view.home.FavoritesScreen
-import com.example.games.view.home.GamesScreen
+import com.example.games.view.home.favorites.FavoritesScreen
+import com.example.games.view.home.games.GamesScreen
 
 @Composable
-fun AppNavGraph(navController: NavHostController,modifier: Modifier) {
-    NavHost(navController = navController, startDestination = Screens.Home.route, modifier = modifier) {
+fun AppNavGraph(navController: NavHostController, modifier: Modifier) {
+    NavHost(
+        navController = navController,
+        startDestination = Screens.Home.route,
+        modifier = modifier
+    ) {
         navigation(startDestination = Screens.Games.route, route = Screens.Home.route) {
             composable(route = Screens.Games.route) {
                 GamesScreen(navController)
@@ -22,7 +26,8 @@ fun AppNavGraph(navController: NavHostController,modifier: Modifier) {
             }
         }
         composable(route = Screens.Detail.route) {
-            DetailScreen(navController)
+            val id = it.arguments?.getString("game_id")
+            id?.let { it1 -> DetailScreen(navController, it1.toInt()) }
         }
     }
 }
