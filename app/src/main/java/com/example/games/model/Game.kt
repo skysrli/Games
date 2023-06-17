@@ -6,23 +6,25 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class Game(
     @Json(name = "id")
-    val id: Int,
+    val id: Int?,
 
     @Json(name = "name")
-    val name: String,
+    val name: String?,
 
     @Json(name = "background_image")
-    val image: String,
+    val image: String?,
 
     @Json(name = "metacritic")
-    val metacritic: Int,
+    val metacritic: Int?,
 
     @Json(name = "genres")
-    val genres: List<Genre>,
+    val genres: List<Genre>?,
+
+    val isFavorite:Boolean = false
 )
 
 @JsonClass(generateAdapter = true)
 data class Genre(
     @Json(name = "name")
-    val name: String,
+    val name: String?,
 )

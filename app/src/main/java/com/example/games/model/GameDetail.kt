@@ -6,20 +6,20 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class GameDetail(
     @Json(name = "id")
-    val id: Int,
+    val id: Int?,
 
     @Json(name = "name")
-    val name: String,
+    val name: String?,
 
     @Json(name = "description")
-    val description: String,
+    val description: String?,
 
     @Json(name = "background_image")
-    val image: String,
+    val image: String?,
 
     @Json(name = "reddit_url")
-    val redditUrl: String,
+    val redditUrl: String?,
 
     @Json(name = "website")
-    val website: String,
+    val website: String?,
 )

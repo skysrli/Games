@@ -96,7 +96,7 @@ private fun Content(navController: NavController, gameDetail: GameDetail, contex
             .fillMaxSize()
             .background(White)
     ) {
-        TopBar(navController, gameDetail.name)
+        TopBar(navController, gameDetail.name ?: "")
 
         Column(
             modifier = Modifier
@@ -120,7 +120,7 @@ private fun Content(navController: NavController, gameDetail: GameDetail, contex
                         .align(Alignment.BottomStart)
                         .padding(start = 15.dp, bottom = 15.dp)
                         .fillMaxWidth(),
-                    text = gameDetail.name,
+                    text = gameDetail.name ?: "",
                     color = White,
                     style = Typography.subtitle1,
                     fontSize = 36.sp,
@@ -143,7 +143,7 @@ private fun Content(navController: NavController, gameDetail: GameDetail, contex
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, bottom = 16.dp),
-                text = gameDetail.description,
+                text = gameDetail.description ?: "",
                 style = Typography.body2,
                 fontSize = 10.sp,
                 color = Black313,

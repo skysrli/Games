@@ -33,8 +33,10 @@ class GamesViewModel @Inject constructor(
                 .catch {
 
                 }
-                .collect {
-                    _uiState.value = GameListState.Success(it.results)
+                .collect { gameResult ->
+                    gameResult.results?.let {
+                        _uiState.value = GameListState.Success(it)
+                    }
                 }
         }
 
@@ -46,5 +48,19 @@ class GamesViewModel @Inject constructor(
 //            } else {
 //
 //            }
+    }
+
+    fun getFilteredGameList(key: String) {
+        viewModelScope.launch {
+            apiRepository.getFilteredGameList(key)
+                .catch {
+                    Log.e("Filtered", it.toString())
+                }
+                .collect { gameResult ->
+                    gameResult.results?.let {
+                        _uiState.value = GameListState.Success(it)
+                    }
+                }
+        }
     }
 }

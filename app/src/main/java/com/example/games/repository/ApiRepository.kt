@@ -23,4 +23,7 @@ class ApiRepository @Inject constructor(
         emit(apiServiceImpl.getGameDetail(id))
     }.flowOn(Dispatchers.IO)
 
+    fun getFilteredGameList(key: String): Flow<GameResult> = flow {
+        emit(apiServiceImpl.getFilteredGameList(key))
+    }.flowOn(Dispatchers.IO)
 }

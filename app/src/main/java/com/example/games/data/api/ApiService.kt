@@ -21,4 +21,12 @@ interface ApiService {
         @Path("id") id: Int = 0,
         @Query("key") apiKey: String = API_KEY,
     ): GameDetail
+
+    @GET("games")
+    suspend fun getFilteredGameList(
+        @Query("page_size") pageSize: Int = 10,
+        @Query("page") page: Int = 1,
+        @Query("search") searchKey: String,
+        @Query("key") apiKey: String = API_KEY,
+    ): GameResult
 }
