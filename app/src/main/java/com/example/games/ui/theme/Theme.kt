@@ -36,7 +36,7 @@ private val LightColorPalette = lightColors(
 @Composable
 fun GamesTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val systemUiController = rememberSystemUiController()
-    var colors: Colors? = null
+    var colors: Colors?
     if (darkTheme) {
         colors = DarkColorPalette
         systemUiController.setSystemBarsColor(color = White)

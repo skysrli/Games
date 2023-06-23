@@ -8,5 +8,10 @@
     <string name="favorites_screen_text_no_favorites">There is no favorites.</string>
     <string name="games_screen_text_no_games">No game has been searched.</string>
     <string name="games_screen_hint_game_search">Search for games</string>
-    <string name="gams_screen_row_item_text_metacritic">metacritic:\u0020\u0020</string>
+    <string name="games_screen_row_item_text_metacritic">metacritic:\u0020\u0020</string>
+    <string name="games_screen_info_text_search">Please enter the least 4 character for searching</string>
+    <string name="detail_screen_info_text_success_add_fav">Added the game to your favorite list successfully.</string>
+    <string name="unexpected_error_message">An unexpected error has occurred, please try again later</string>
+    <string name="favorites_screen_info_text_success_delete_fav">Deleted the game from your favorite list successfully.</string>
+
 </resources>
